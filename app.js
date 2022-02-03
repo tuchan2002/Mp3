@@ -1,4 +1,4 @@
-const song = document.getElementById('song');
+const audio = document.getElementById('audio');
 const playBtn = document.querySelector(".play-inner");
 const nextBtn = document.querySelector(".play-forward");
 const prevBtn = document.querySelector(".play-back");
@@ -51,16 +51,30 @@ let isRandom = false;
 let timer;
 
 let playlists = '';
-musics.forEach(music => {
-    playlists += `<li class="song">
+musics.forEach((music, index) => {
+    playlists += `<li class="song" data-index="${index}">
         <div class="song-thumb">
             <img src="${music.image}" alt="song-thumb">
         </div>
         <h4 class="song-name">${music.title}</h4>
-        <ion-icon name="ellipsis-horizontal"></ion-icon>
+        <ion-icon name="ellipsis-horizontal" class="song-option"></ion-icon>
     </li>`
 })
 musicPlaylists.innerHTML = playlists;
+musicPlaylists.querySelector(".song[data-index='0']").classList.add("active");
+
+musicPlaylists.addEventListener("click", function(e) {
+    const songElement = e.target.closest('.song:not(.active)');
+    if (songElement) {
+        const songElementActived = musicPlaylists.querySelector('.song.active');
+        songElementActived.classList.remove("active");
+        songElement.classList.add("active");
+        let newIndexSong = songElement.getAttribute('data-index');
+        isPlaying = true;
+        init(newIndexSong)
+        playPause();
+    }
+})
 
 playRepeat.addEventListener("click", function() {
     if (isRepeat) {
@@ -86,7 +100,7 @@ nextBtn.addEventListener("click", function() {
 prevBtn.addEventListener("click", function() {
     changeSong(-1);
 })
-song.addEventListener("ended", handleEndedSong);
+audio.addEventListener("ended", handleEndedSong);
 
 function handleEndedSong() {
     if (isRepeat) {
@@ -130,12 +144,12 @@ playBtn.addEventListener("click", playPause);
 
 function playPause() {
     if (isPlaying) {
-        song.play();
+        audio.play();
         playBtn.innerHTML = `<ion-icon name="pause"></ion-icon>`;
         timer = setInterval(displayTimer, 500)
         musicThumbnail.classList.add("is-playing");
     } else {
-        song.pause();
+        audio.pause();
         playBtn.innerHTML = `<ion-icon name="play"></ion-icon>`;
         clearInterval(timer)
         musicThumbnail.classList.remove("is-playing");
@@ -144,7 +158,7 @@ function playPause() {
 }
 
 function displayTimer() {
-    const { duration, currentTime } = song;
+    const { duration, currentTime } = audio;
     rangeBar.max = duration;
     rangeBar.value = currentTime;
 
@@ -165,13 +179,17 @@ function formatTimer(number) {
 rangeBar.addEventListener("change", handleChangeBar);
 
 function handleChangeBar() {
-    song.currentTime = rangeBar.value;
+    audio.currentTime = rangeBar.value;
 }
 
 function init(indexSong) {
-    song.setAttribute("src", `./music/${musics[indexSong].file}`);
+    audio.setAttribute("src", `./music/${musics[indexSong].file}`);
     musicName.textContent = musics[indexSong].title;
     musicImage.setAttribute("src", musics[indexSong].image);
+
+    const songElementActived = musicPlaylists.querySelector('.song.active');
+    songElementActived.classList.remove("active");
+    musicPlaylists.querySelector(`.song[data-index='${indexSong}']`).classList.add("active");
 }
 displayTimer();
 init(indexSong);
