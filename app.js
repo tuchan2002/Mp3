@@ -52,7 +52,7 @@ let timer;
 
 let playlists = '';
 musics.forEach((music, index) => {
-    playlists += `<li class="song" data-index="${index}">
+    playlists += `<li class="song ${index === 0 ? 'active' : ''}" data-index="${index}">
         <div class="song-thumb">
             <img src="${music.image}" alt="song-thumb">
         </div>
@@ -61,7 +61,6 @@ musics.forEach((music, index) => {
     </li>`
 })
 musicPlaylists.innerHTML = playlists;
-musicPlaylists.querySelector(".song[data-index='0']").classList.add("active");
 
 musicPlaylists.addEventListener("click", function(e) {
     const songElement = e.target.closest('.song:not(.active)');
@@ -75,6 +74,20 @@ musicPlaylists.addEventListener("click", function(e) {
         playPause();
     }
 })
+
+const thumbWidth = musicThumbnail.offsetWidth;
+const playlistsHeight = musicPlaylists.offsetHeight;
+const playlistsMaxHeight = thumbWidth + playlistsHeight;
+musicPlaylists.onscroll = () => {
+    const scrollTop = musicPlaylists.scrollTop;
+
+    const newThumbWidth = thumbWidth - scrollTop;
+    musicThumbnail.style.width = newThumbWidth > 0 ? newThumbWidth + 'px' : 0;
+    musicThumbnail.style.height = newThumbWidth > 0 ? newThumbWidth + 'px' : 0;
+
+    const newPlaylistsHeight = playlistsHeight + scrollTop;
+    musicPlaylists.style.height = newPlaylistsHeight > playlistsMaxHeight ? playlistsMaxHeight + 'px' : newPlaylistsHeight + 'px';
+}
 
 playRepeat.addEventListener("click", function() {
     if (isRepeat) {
