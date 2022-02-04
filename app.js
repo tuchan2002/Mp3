@@ -45,7 +45,7 @@ const musics = [{
     },
     {
         id: 6,
-        name: "Tegami",
+        name: "手紙 - Tegami",
         file: "tegami.mp3",
         image: "https://i.pinimg.com/564x/19/b7/86/19b786eb1325d2bef10ce03b85e84a9f.jpg"
     },
