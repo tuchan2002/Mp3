@@ -14,9 +14,9 @@ const musicPlaylists = document.querySelector(".music-playlists");
 
 const musics = [{
         id: 1,
-        title: "Tegami",
-        file: "tegami.mp3",
-        image: "https://i.pinimg.com/564x/19/b7/86/19b786eb1325d2bef10ce03b85e84a9f.jpg"
+        title: "You Are My Everything",
+        file: "you-are-my-everything.mp3",
+        image: "https://i.pinimg.com/564x/36/97/d9/3697d92f1c481e802ee9fac219609928.jpg"
     },
     {
         id: 2,
@@ -32,12 +32,24 @@ const musics = [{
     },
     {
         id: 4,
+        title: "Kiếp Đỏ Đen",
+        file: "kiep-do-den.mp3",
+        image: "https://i.pinimg.com/564x/6e/76/cb/6e76cbc291d2bc55c6b3e6258945008c.jpg"
+    },
+    {
+        id: 5,
         title: "Once Again",
         file: "once-again.mp3",
         image: "https://i.pinimg.com/564x/a9/ff/3f/a9ff3f20cbcc1e9d43c6a75255480c83.jpg"
     },
     {
-        id: 5,
+        id: 6,
+        title: "Tegami",
+        file: "tegami.mp3",
+        image: "https://i.pinimg.com/564x/19/b7/86/19b786eb1325d2bef10ce03b85e84a9f.jpg"
+    },
+    {
+        id: 7,
         title: "Beautiful In White",
         file: "beautiful-in-white.mp3",
         image: "https://i.pinimg.com/736x/e0/04/7f/e0047fff433cc9f9394de8e956bac5e8.jpg"
@@ -81,7 +93,7 @@ const playlistsMaxHeight = thumbWidth + playlistsHeight;
 musicPlaylists.onscroll = () => {
     const scrollTop = musicPlaylists.scrollTop;
 
-    const newThumbWidth = thumbWidth - scrollTop;
+    const newThumbWidth = thumbWidth - scrollTop * 2;
     musicThumbnail.style.width = newThumbWidth > 0 ? newThumbWidth + 'px' : 0;
     musicThumbnail.style.height = newThumbWidth > 0 ? newThumbWidth + 'px' : 0;
 
