@@ -91,9 +91,9 @@ const thumbWidth = musicThumbnail.offsetWidth;
 const playlistsHeight = musicPlaylists.offsetHeight;
 const playlistsMaxHeight = thumbWidth + playlistsHeight;
 musicPlaylists.onscroll = () => {
-    const scrollTop = musicPlaylists.scrollTop;
+    const scrollTop = musicPlaylists.scrollTop * 2;
 
-    const newThumbWidth = thumbWidth - scrollTop * 2;
+    const newThumbWidth = thumbWidth - scrollTop;
     musicThumbnail.style.width = newThumbWidth > 0 ? newThumbWidth + 'px' : 0;
     musicThumbnail.style.height = newThumbWidth > 0 ? newThumbWidth + 'px' : 0;
 
