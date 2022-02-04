@@ -1,3 +1,4 @@
+const title = document.querySelector("title");
 const audio = document.getElementById('audio');
 const playBtn = document.querySelector(".play-inner");
 const nextBtn = document.querySelector(".play-forward");
@@ -14,43 +15,43 @@ const musicPlaylists = document.querySelector(".music-playlists");
 
 const musics = [{
         id: 1,
-        title: "You Are My Everything",
+        name: "You Are My Everything",
         file: "you-are-my-everything.mp3",
         image: "https://i.pinimg.com/564x/36/97/d9/3697d92f1c481e802ee9fac219609928.jpg"
     },
     {
         id: 2,
-        title: "Until You",
+        name: "Until You",
         file: "until-you.mp3",
         image: "https://i.pinimg.com/564x/04/87/e0/0487e0aef28e0149775ff669886f2e28.jpg"
     },
     {
         id: 3,
-        title: "This Love",
+        name: "This Love",
         file: "this-love.mp3",
         image: "https://i.pinimg.com/564x/c5/83/75/c58375abf0f8074e1879da2a0ba9c214.jpg"
     },
     {
         id: 4,
-        title: "Kiếp Đỏ Đen",
+        name: "Kiếp Đỏ Đen",
         file: "kiep-do-den.mp3",
         image: "https://i.pinimg.com/564x/6e/76/cb/6e76cbc291d2bc55c6b3e6258945008c.jpg"
     },
     {
         id: 5,
-        title: "Once Again",
+        name: "Once Again",
         file: "once-again.mp3",
         image: "https://i.pinimg.com/564x/a9/ff/3f/a9ff3f20cbcc1e9d43c6a75255480c83.jpg"
     },
     {
         id: 6,
-        title: "Tegami",
+        name: "Tegami",
         file: "tegami.mp3",
         image: "https://i.pinimg.com/564x/19/b7/86/19b786eb1325d2bef10ce03b85e84a9f.jpg"
     },
     {
         id: 7,
-        title: "Beautiful In White",
+        name: "Beautiful In White",
         file: "beautiful-in-white.mp3",
         image: "https://i.pinimg.com/736x/e0/04/7f/e0047fff433cc9f9394de8e956bac5e8.jpg"
     },
@@ -68,7 +69,7 @@ musics.forEach((music, index) => {
         <div class="song-thumb">
             <img src="${music.image}" alt="song-thumb">
         </div>
-        <h4 class="song-name">${music.title}</h4>
+        <h4 class="song-name">${music.name}</h4>
         <ion-icon name="ellipsis-horizontal" class="song-option"></ion-icon>
     </li>`
 })
@@ -210,12 +211,13 @@ function handleChangeBar() {
 
 function init(indexSong) {
     audio.setAttribute("src", `./music/${musics[indexSong].file}`);
-    musicName.textContent = musics[indexSong].title;
+    musicName.textContent = musics[indexSong].name;
     musicImage.setAttribute("src", musics[indexSong].image);
 
     const songElementActived = musicPlaylists.querySelector('.song.active');
     songElementActived.classList.remove("active");
     musicPlaylists.querySelector(`.song[data-index='${indexSong}']`).classList.add("active");
+    title.textContent = musics[indexSong].name;
 }
 displayTimer();
 init(indexSong);
